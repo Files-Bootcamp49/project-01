@@ -1,0 +1,394 @@
+openapi: 3.0.3
+info:
+  title: API Bootcamp49
+  description: API para encargada de los .
+  version: 1.0.11
+servers:
+  - url: https://api.example.com/v1/bank
+tags:
+  - name: customer
+    description: Maneja datos del cliente.
+  - name: product
+    description: Maneja datos y operaciones de los productos.
+paths:
+  /customer:
+    post:
+      tags:
+        - customer
+      summary: Crear un cliente.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+  /customer/{idCliente}:
+    get:
+      tags:
+        - customer
+      summary:  Obtener datos del cliente.
+      parameters:
+        - name: idCliente
+          in: path
+          description: Identificador del cliente.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - customer
+      summary:  Actualizar datos del cliente.
+      parameters:
+        - name: idCliente
+          in: path
+          description: Identificador del cliente.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '400':
+          description: Invalid input
+    delete:
+      tags:
+        - customer
+      summary:  Eliminar cliente.
+      parameters:
+        - name: idCliente
+          in: path
+          description: Identificador del cliente.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+        '404':
+          description: Not Found
+  /product/account:
+    post:
+      tags:
+        - product
+      summary: Registra una cuenta.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductoCuenta'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductoCuenta'
+  /product/account/{idProducto}:
+    get:
+      tags:
+        - product
+      summary:  Obtener datos de una cuenta.
+      parameters:
+        - name: idProducto
+          in: path
+          description: Identificador de la cuenta.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductoCuenta'
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - product
+      summary:  Actualizar datos de una cuenta.
+      parameters:
+        - name: idProducto
+          in: path
+          description: Identificador de la cuenta.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductoCuenta'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductoCuenta'
+        '400':
+          description: Invalid input
+    delete:
+      tags:
+        - product
+      summary:  Eliminar cuenta.
+      parameters:
+        - name: idProducto
+          in: path
+          description: Identificador de la cuenta.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+        '404':
+          description: Not Found
+  /product/credit:
+    post:
+      tags:
+        - product
+      summary: Registra un credito.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductoCredito'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductoCredito'
+  /product/credit/{idProducto}:
+    get:
+      tags:
+        - product
+      summary:  Obtener datos de una credito.
+      parameters:
+        - name: idProducto
+          in: path
+          description: Identificador de un credito.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductoCredito'
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - product
+      summary:  Actualizar datos de un credito.
+      parameters:
+        - name: idProducto
+          in: path
+          description: Identificador de un credito.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductoCredito'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductoCredito'
+        '400':
+          description: Invalid input
+    delete:
+      tags:
+        - product
+      summary:  Eliminar un credito.
+      parameters:
+        - name: idProducto
+          in: path
+          description: Identificador de un credito.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+        '404':
+          description: Not Found
+components:
+  schemas:
+    Cliente:
+      type: object
+      properties:
+        idCliente:
+          type: integer
+          description: Identificador del cliente.
+          format: int64
+        tipoCliente:
+          type: string
+          description: Tipo de cliente (Persona, Empresa).
+          enum:
+            - Empresa
+            - Persona
+        datosCliente:
+          oneOf:
+            - $ref: '#/components/schemas/DatosPersona'
+            - $ref: '#/components/schemas/DatosEmpresa'
+        direccion:
+          type: string
+          description: Direccion del cliente.
+          example: 'De la Pompa y Pompa 101'
+    DatosPersona:
+      type: object
+      properties:
+        documentoIdentidad:
+          type: integer
+          description: Documento de identidad del cliente.
+          format: int64
+          example: 56124578
+        nombres:
+          type: string
+          description: NOmbres del cliente).
+          example: Guillermino Perico
+        apellidoPaterno:
+          type: string
+          description: Apellido paterno del cliente.
+          example: De los Palotes
+        apellidoMaterno:
+          type: string
+          description: Apellido paterno del cliente.
+          example: Y Acebedo
+    DatosEmpresa:
+      type: object
+      properties:
+        RUC:
+          type: integer
+          description: RUC de la empresa.
+          format: int64
+          example: 56124578101
+        razonSocial:
+          type: string
+          description: Razon social de la empresa.
+          example: Banana Joe
+    ProductoCuenta:
+      type: object
+      properties:
+        idProducto:
+          type: integer
+          description: Identificador del producto.
+          format: int64
+          example: 10
+        tipoCuenta:
+          type: string
+          description: Tipo de cuenta.
+          enum:
+            - CtaAhorro
+            - CtaCorriente
+            - CtaPlazoFijo
+        saldo:
+          type: integer
+          description: Saldo del cliente.
+          format: int64
+          example: 1000
+        comisionMantenimiento:
+          type: integer
+          description: Comision por mantenimiento.
+          format: int64
+          example: 10
+        limiteMovimientoDeposito:
+          type: integer
+          description: Limite de depositos.
+          format: int32
+        limiteMovimientoRetiro:
+          type: integer
+          description: Limite de retiros.
+          format: int32
+        fechaDeposito:
+          type: string
+          description: Fecha para depositos.
+          format: date
+        fechaRetiro:
+          type: string
+          description: Fecha para retiros.
+          format: date
+    ProductoCredito:
+      type: object
+      properties:
+        idProducto:
+          type: integer
+          description: Identificador del producto.
+          format: int64
+          example: 10
+        tipoCredito:
+          type: string
+          description: Tipo de credito.
+          enum:
+            - Personal
+            - Empresarial
+            - TarjetaCredito
+        lineaCredito:
+          type: integer
+          description: Monto de linea de credito.
+          format: int64
+          example: 1000
+        deuda:
+          type: integer
+          description: Monto de deuda.
+          format: int64
+          example: 10
+        fechaInicio:
+          type: string
+          description: Fecha de inicio de credito.
+          format: date
+        fechaFin:
+          type: string
+          description: Fecha de vencimiento de credito.
+          format: date
